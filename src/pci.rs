@@ -11,7 +11,7 @@ use ChunkerImpl;
 /// bound on the size of chunks produced. This is apparent in the pseudocode of the algorithm, and
 /// we implement it as such here.
 ///
-/// Source:C. Zhang, D. Qi, W. Li and J. Guo, "Function of Content Defined Chunking Algorithms in
+/// Source: C. Zhang, D. Qi, W. Li and J. Guo, "Function of Content Defined Chunking Algorithms in
 /// Incremental Synchronization," in IEEE Access, vol. 8, pp. 5316-5330, 2020,
 /// doi: 10.1109/ACCESS.2019.2963625.
 /// PDF: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8949536
@@ -85,12 +85,12 @@ impl<const W: usize> PCIChunkerState<W> {
         self.running_popcount += b.count_ones();
 
         // Overwrite byte in the window.
-        self.window[pos] = b;
-        self.pos += 1;
+        self.ingest_byte_raw(b);
     }
 
     fn ingest_byte_raw(&mut self, b: u8) {
-        self.window[self.pos % W] = b;
+        self.window.rotate_left(1);
+        self.window[W - 1] = b;
         self.pos += 1;
     }
 
