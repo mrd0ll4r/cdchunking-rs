@@ -118,6 +118,7 @@
 #![forbid(unsafe_code)]
 
 mod ae;
+mod seq;
 mod bfbc;
 mod fsc;
 mod gear;
@@ -126,6 +127,7 @@ mod pci;
 mod ram;
 
 pub use ae::AEChunker;
+pub use seq::SeqChunker;
 pub use bfbc::BFBCChunker;
 pub use fsc::FixedSizeChunker;
 pub use gear::{GearChunker, NormalizedChunkingGearChunker};
